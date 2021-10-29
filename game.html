@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game | Light Novel</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="./script.js" defer type="module"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Test Game Light Novel</h1>
+    </header>
+    <section class="game-page">
+      <div class="log-box"></div>
+      <div class="intro-box">
+        <div class="intro"></div>
+      </div>
+      <div class="event">
+        <div class="event-box"></div>
+      </div>
+      <div class="char-box hidden"></div>
+      <div class="dialog-box hidden">
+        <div class="dialog-control">
+          <ul>
+            <li><button class="btn btn-auto">Auto</button></li>
+            <li><button class="btn btn-log">Log</button></li>
+          </ul>
+        </div>
+        <div class="dialog-display">
+          <p class="person">Kazuma</p>
+          <div class="text"></div>
+        </div>
+      </div>
+    </section>
+    <aside>
+      <audio class="bgm" controls autoplay>
+        <!-- <source src="./src/bgm-01.mp3" type="audio/mpeg" /> -->
+      </audio>
+    </aside>
+  </body>
+</html>

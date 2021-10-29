@@ -1,0 +1,265 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Indie+Flower&family=Odibee+Sans&display=swap')");
+
+:root {
+  --font-01: "Indie Flower", cursive;
+  --font-02: "Caveat", cursive;
+  --font-03: "Odibee Sans", cursive;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-03);
+  font-weight: 400;
+}
+header {
+  position: fixed;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  background-color: aqua;
+  color: black;
+  padding: 5px;
+  font-weight: 700;
+}
+.game-page {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./src/bg-01.jpg);
+  background-repeat: no-repeat;
+  background-size: 200%;
+  background-position: center bottom;
+  animation: bg-animation 5s linear;
+}
+@keyframes bg-animation {
+  0% {
+    background-position: top center;
+  }
+  50% {
+    background-position: center center;
+  }
+  100% {
+    background-position: center bottom;
+  }
+}
+.log-box {
+  width: 400px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  background-color: rgba(32, 32, 31, 0.816);
+  /* display: flex; */
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  overflow: auto;
+  display: none;
+}
+.log-box::before {
+  content: "";
+  margin-top: 30px;
+}
+.log-box div {
+  background-color: white;
+  padding: 10px;
+  text-align: left;
+  border-radius: 5px;
+  margin: 5px 0px;
+}
+.log-box .person {
+  font-family: var(--font-03);
+}
+.log-box div p {
+  font-family: var(--font-02);
+}
+.char-box {
+  max-width: 900px;
+  position: absolute;
+  bottom: 100px;
+  left: auto;
+  display: flex;
+  /* grid-template-columns: repeat(4, auto); */
+  justify-content: space-between;
+  /* width: 100%; */
+}
+.char {
+  /* background-color: aqua; */
+  /* border: 1px solid black; */
+  height: 300px;
+  min-width: 20vw;
+  transform-origin: left;
+  /* opacity: 0; */
+}
+.char-box img {
+  width: 100%;
+  height: 100%;
+}
+#kazuma {
+  /* background-image: url(./src/kazuma.png); */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#aqua {
+  /* background-image: url(./src/aqua.png); */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.talk {
+  animation: talk 1s linear;
+}
+.event {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(65, 63, 63, 0.322);
+}
+.event-box {
+  width: 300px;
+  /* height: 100vh; */
+  background-color: rgba(209, 127, 39, 0.837);
+  /* display: flex; */
+  flex-flow: column;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 2px 3px 3px black;
+}
+.intro-box {
+  position: absolute;
+  display: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.693);
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.intro {
+  width: 300px;
+  min-height: 100px;
+  background-color: white;
+  border: 10px solid burlywood;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+.btn-event {
+  padding: 5px;
+  margin: 5px;
+}
+.dialog-box {
+  position: absolute;
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-flow: column;
+  bottom: 10px;
+  left: auto;
+  background-color: chocolate;
+  width: 60%;
+  height: 140px;
+  border-radius: 10px;
+}
+.dialog-display {
+  background-color: white;
+  width: 95%;
+  height: 110px;
+  text-align: left;
+  padding: 3px;
+  overflow: auto;
+}
+.person {
+  text-transform: capitalize;
+}
+.play {
+  animation: text 1.3s ease;
+  transform-origin: left;
+}
+.text p {
+  font-family: var(--font-02) !important;
+  /* opacity: 0%; */
+}
+.dialog-control {
+}
+ul {
+  list-style: none;
+}
+li {
+  display: inline;
+}
+.btn {
+  border: none;
+  padding: 2px 3px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.next {
+  display: block;
+  position: absolute;
+  padding: 5px;
+  right: 20px;
+  bottom: 20px;
+}
+.active {
+  background-color: rgb(233, 229, 229);
+  color: chocolate;
+}
+.btn:hover {
+  background-color: rgb(233, 229, 229);
+  color: chocolate;
+}
+.show {
+  display: flex !important;
+}
+.bgm {
+  display: none;
+}
+@keyframes talk {
+  0%,
+  100% {
+    /* transform: rotate(0); */
+    transform: scale(1);
+    /* opacity: 0; */
+  }
+  50% {
+    /* transform: rotate(5deg); */
+    transform: scale(1.1);
+    /* opacity: 1; */
+  }
+}
+@keyframes text {
+  0% {
+    opacity: 0%;
+    /* transform: scaleY(0); */
+  }
+  50% {
+    opacity: 50%;
+  }
+  100% {
+    opacity: 100%;
+    /* transform: scaleY(1); */
+  }
+}
+
+.hidden {
+  display: none;
+}
