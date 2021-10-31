@@ -1,48 +1,61 @@
 [
   {
     "type": "intro",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis!",
+    "title": "adegan1",
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis | adegan2",
     "event": false
   },
   {
     "type": "intro",
-    "text": "Lorem ipsum dolor, Officia,debitis!"
+    "title": "adegan2",
+    "text": "Lorem ipsum dolor, Officia,debitis! | adegan3"
+  },
+  {
+    "title": "adegan3",
+    "type": "text",
+    "char": "kazuma",
+    "display": "kazuma",
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan4"
   },
   {
     "char": "kazuma",
+    "type": "text",
+    "title": "adegan4",
     "display": "kazuma",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis!",
-    "event": false
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan5"
   },
   {
-    "char": "kazuma",
-    "display": "kazuma",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis!",
-    "event": false
-  },
-  {
+    "title": "adegan5",
+    "type": "text",
     "char": "aqua",
     "display": "aqua",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis!",
-    "event": false
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan6"
   },
   {
+    "title": "adegan6",
+    "type": "text",
     "char": "aqua",
     "display": ["kazuma", "aqua"],
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis!",
-    "event": false
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan7"
   },
   {
+    "title": "adegan7",
+    "type": "text",
     "char": "kazuma",
     "display": ["kazuma", "aqua"],
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis!",
-    "event": false
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan8"
   },
   {
+    "title": "adegan8",
+    "type": "event",
     "char": "kazuma",
     "display": "kazuma",
     "text": "Lorem ipsum dolor?",
-    "event": true,
     "options": ["End", "Next rute", "pilihan 3"]
+  },
+  {
+    "title": "end",
+    "type": "intro",
+    "text": "Game End"
   }
 ]

@@ -24,26 +24,28 @@ const gambar = {
   darkness: "./src/Darkness.png",
 };
 
+// function utama
 xmlhttp.onreadystatechange = function () {
   if (this.readyState == 4 && this.status == 200) {
     const myObj = JSON.parse(this.responseText);
-    // document.getElementById("demo").innerHTML = myObj.name;
-    // console.log(myObj[0].char);
+    // start game
     setTimeout(() => {
-      console.log("akhir");
       update(myObj, eventNow);
       addLog(myObj, eventNow);
       const next = document.querySelector(".next");
       next.addEventListener("click", () => {
+        let dialog = myObj[eventNow];
         clear();
-        eventNext(myObj);
+        let choice = captureLink(dialog.text);
+        console.log(captureLink(dialog.text));
+        eventNext(myObj, choice.target);
         addLog(myObj, eventNow);
       });
-
       introBox.addEventListener("click", () => {
         clear();
+        // console.log(myObj[eventNow].title);
         eventNext(myObj);
-        // addLog(myObj, eventNow);
+        addLog(myObj, eventNow);
       });
       btnLog.addEventListener("click", () => {
         btnLog.classList.toggle("active");
@@ -62,14 +64,12 @@ xmlhttp.onreadystatechange = function () {
       setInterval(() => {
         if (autoplay) {
           if (eventNow >= myObj.length - 1) {
-            console.log("stop");
             autoplay = false;
           } else {
             clear();
             eventNext(myObj);
             addLog(myObj, eventNow);
           }
-          console.log(myObj.length - 1);
         }
       }, 2000);
     }, 5000);
@@ -117,16 +117,40 @@ function talk(char) {
   talkChar.classList.add("talk");
 }
 
-function eventNext(dialog) {
-  eventNow += 1;
-  if (eventNow > dialog.length - 1) {
-    eventNow = dialog.length - 1;
-    // console.log("auto stop");
-    // clearInterval(textauto);
+// menampilkan adegan selanjutnya
+function eventNext(dialog, target) {
+  if (target != null) {
+    let idTarget = findWithAttr(dialog, "title", target);
+    eventNow = idTarget;
+  } else {
+    eventNow += 1;
+    if (eventNow > dialog.length - 1) {
+      eventNow = dialog.length - 1;
+    }
   }
   update(dialog, eventNow);
-  //   console.log(eventNow);
 }
+// mengambil link di teks
+function captureLink(text) {
+  let choice = { target: "", text: "" };
+  let data = text.split("|");
+  choice.text = data[0];
+  if (data.length > 1) {
+    choice.target = data[1].trim().toLowerCase();
+  }
+  return choice;
+}
+// menemukan id target
+function findWithAttr(array, attr, value) {
+  for (let i = 0; i < array.length; i++) {
+    // console.log(value);
+    if (array[i][attr] === value) {
+      return i;
+    }
+  }
+  return -1;
+}
+// mereset tampilan layar
 function clear() {
   intro.innerHTML = "";
   charBox.innerHTML = "";
@@ -159,7 +183,7 @@ function addLog(dialog, history) {
     div.append(logText);
     logBox.append(div);
   }
-  console.log(history);
+  // console.log(history);
 }
 function displayChar(variabel) {
   if (Array.isArray(variabel)) {
