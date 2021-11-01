@@ -91,7 +91,7 @@ function update(dialog, i) {
   textBox.append(text);
   // textBox.classList.add("play");
 
-  if (dialog[i].event) {
+  if (dialog[i].type == "event") {
     eventShow.classList.add("show");
     eventBox.classList.add("show");
     let options = dialog[i].options;
