@@ -30,17 +30,20 @@ xmlhttp.onreadystatechange = function () {
     const myObj = JSON.parse(this.responseText);
     // start game
     setTimeout(() => {
+      // mengupdate tampilan layar
       update(myObj, eventNow);
       addLog(myObj, eventNow);
       const next = document.querySelector(".next");
-      next.addEventListener("click", () => {
-        let dialog = myObj[eventNow];
-        clear();
-        let choice = captureLink(dialog.text);
-        console.log(captureLink(dialog.text));
-        eventNext(myObj, choice.target);
-        addLog(myObj, eventNow);
-      });
+      if (myObj[eventNow].type === "text") {
+        next.addEventListener("click", () => {
+          let dialog = myObj[eventNow];
+          clear();
+          let choice = captureLink(dialog.text);
+          console.log(captureLink(dialog.text));
+          eventNext(myObj, choice.target);
+          addLog(myObj, eventNow);
+        });
+      }
       introBox.addEventListener("click", () => {
         clear();
         // console.log(myObj[eventNow].title);
@@ -60,7 +63,7 @@ xmlhttp.onreadystatechange = function () {
           autoplay = true;
         }
       });
-
+      //  fungsi auto play
       setInterval(() => {
         if (autoplay) {
           if (eventNow >= myObj.length - 1) {
@@ -81,37 +84,72 @@ xmlhttp.send();
 // console.log(myObj[0].char);
 function update(dialog, i) {
   // dialog();
-  displayChar(dialog[i].display);
-  talk(dialog[i].char);
-  person.innerText = dialog[i].char;
-  let text = document.createElement("p");
-  text.classList.add("play");
-  text.innerText = dialog[i].text;
-  text.append(btn);
-  textBox.append(text);
-  // textBox.classList.add("play");
-
+  // mengecek jenis dialog
+  if (dialog[i].type === "text") {
+    // tampilkan text
+    displayText(dialog, i);
+    console.log("text");
+  }
+  if (dialog[i].type === "intro") {
+    // jika dialog intro
+    displayIntro(dialog, i);
+  }
+  if (dialog[i].type === "video") {
+    // jika dialog video
+  }
   if (dialog[i].type == "event") {
-    eventShow.classList.add("show");
-    eventBox.classList.add("show");
-    let options = dialog[i].options;
-    for (let i = 0; i < options.length; i++) {
-      let option = document.createElement("button");
-      option.innerText = options[i];
-      option.classList.add("btn-event");
-      eventBox.append(option);
-    }
-    // console.log(dialog[i].options);
+    // jika dialog event
+    displayEvent(dialog, i);
   }
   if (dialog[i].type != "intro") {
     content();
-  } else {
-    prolog();
-    let prologText = document.createElement("p");
-    prologText.innerText = dialog[i].text;
-    intro.append(prologText);
   }
 }
+// tampilkan text
+function displayText(dialog, i) {
+  displayChar(dialog[i].display);
+  talk(dialog[i].char);
+  let choice = captureLink(dialog[i].text);
+  person.innerText = dialog[i].char;
+  let text = document.createElement("p");
+  text.classList.add("play");
+  text.innerText = choice.text;
+  text.append(btn);
+  textBox.append(text);
+  const next = document.querySelector(".next");
+  next.addEventListener("click", () => {
+    clear();
+    eventNext(dialog, choice.target);
+  });
+}
+// tampilkan intro
+function displayIntro(dialog, i) {
+  prolog();
+  let prologText = document.createElement("p");
+  let choice = captureLink(dialog[i].text);
+  prologText.innerText = choice.text;
+  intro.append(prologText);
+}
+// tampilkan event
+function displayEvent(dialog, i) {
+  displayChar(dialog[i].display);
+  talk(dialog[i].char);
+  let options = dialog[i].options;
+  eventShow.classList.add("show");
+  eventBox.classList.add("show");
+  for (let i = 0; i < options.length; i++) {
+    let choice = captureLink(options[i]);
+    let option = document.createElement("button");
+    option.innerText = choice.text;
+    option.classList.add("btn-event");
+    option.addEventListener("click", () => {
+      clear();
+      eventNext(dialog, choice.target);
+    });
+    eventBox.append(option);
+  }
+}
+
 function talk(char) {
   let talkChar = document.getElementById(char);
   talkChar.classList.add("talk");
@@ -122,6 +160,9 @@ function eventNext(dialog, target) {
   if (target != null) {
     let idTarget = findWithAttr(dialog, "title", target);
     eventNow = idTarget;
+    if (eventNow > dialog.length - 1) {
+      eventNow = dialog.length - 1;
+    }
   } else {
     eventNow += 1;
     if (eventNow > dialog.length - 1) {
@@ -129,6 +170,7 @@ function eventNext(dialog, target) {
     }
   }
   update(dialog, eventNow);
+  console.log(eventNow);
 }
 // mengambil link di teks
 function captureLink(text) {

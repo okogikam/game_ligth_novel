@@ -51,7 +51,7 @@
     "char": "kazuma",
     "display": "kazuma",
     "text": "Lorem ipsum dolor?",
-    "options": ["End", "Next rute", "pilihan 3"]
+    "options": ["End | end", "Next rute | adegan1", "pilihan 3 | adegan4"]
   },
   {
     "title": "end",
