@@ -1,5 +1,10 @@
 [
   {
+    "type": "video",
+    "title": "OP",
+    "video": "./src/OP_low.mp4"
+  },
+  {
     "type": "intro",
     "title": "adegan1",
     "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis | adegan2",
@@ -56,6 +61,11 @@
   {
     "title": "end",
     "type": "intro",
-    "text": "Game End"
+    "text": "Game End | ED"
+  },
+  {
+    "title": "ED",
+    "type": "video",
+    "video": "./src/ED.mp4"
   }
 ]

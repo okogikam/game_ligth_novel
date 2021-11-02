@@ -11,6 +11,8 @@ const charBox = document.querySelector(".char-box");
 const introBox = document.querySelector(".intro-box");
 const dialogBox = document.querySelector(".dialog-box");
 const intro = document.querySelector(".intro");
+const videoBox = document.querySelector(".video-box");
+const video = document.querySelector(".video");
 let autoplay = false;
 let eventNow = 0;
 let btn = document.createElement("button");
@@ -44,12 +46,12 @@ xmlhttp.onreadystatechange = function () {
           addLog(myObj, eventNow);
         });
       }
-      introBox.addEventListener("click", () => {
-        clear();
-        // console.log(myObj[eventNow].title);
-        eventNext(myObj);
-        addLog(myObj, eventNow);
-      });
+      // introBox.addEventListener("click", () => {
+      //   clear();
+      //   // console.log(myObj[eventNow].title);
+      //   eventNext(myObj);
+      //   addLog(myObj, eventNow);
+      // });
       btnLog.addEventListener("click", () => {
         btnLog.classList.toggle("active");
         logBox.classList.toggle("show");
@@ -75,7 +77,7 @@ xmlhttp.onreadystatechange = function () {
           }
         }
       }, 2000);
-    }, 5000);
+    }, 500);
   }
 };
 xmlhttp.open("GET", "data.json", true);
@@ -96,6 +98,7 @@ function update(dialog, i) {
   }
   if (dialog[i].type === "video") {
     // jika dialog video
+    displayVideo(dialog, i);
   }
   if (dialog[i].type == "event") {
     // jika dialog event
@@ -107,6 +110,8 @@ function update(dialog, i) {
 }
 // tampilkan text
 function displayText(dialog, i) {
+  charBox.classList.add("show");
+  dialogBox.classList.add("show");
   displayChar(dialog[i].display);
   talk(dialog[i].char);
   let choice = captureLink(dialog[i].text);
@@ -120,6 +125,7 @@ function displayText(dialog, i) {
   next.addEventListener("click", () => {
     clear();
     eventNext(dialog, choice.target);
+    addLog(dialog, eventNow);
   });
 }
 // tampilkan intro
@@ -129,6 +135,12 @@ function displayIntro(dialog, i) {
   let choice = captureLink(dialog[i].text);
   prologText.innerText = choice.text;
   intro.append(prologText);
+  introBox.addEventListener("click", () => {
+    clear();
+    // console.log(myObj[eventNow].title);
+    eventNext(dialog);
+    addLog(dialog, eventNow);
+  });
 }
 // tampilkan event
 function displayEvent(dialog, i) {
@@ -145,9 +157,33 @@ function displayEvent(dialog, i) {
     option.addEventListener("click", () => {
       clear();
       eventNext(dialog, choice.target);
+      addLog(dialog, eventNow);
     });
     eventBox.append(option);
   }
+}
+// tampilkan video
+function displayVideo(dialog, i) {
+  videoBox.classList.add("show");
+  video.src = dialog[i].video;
+  console.log(video);
+
+  video.addEventListener("ended", () => {
+    if (dialog[i].title === "ED") {
+      window.location.replace("./index.html");
+    } else {
+      video.src = "#";
+      eventNext(dialog);
+    }
+  });
+  videoBox.addEventListener("click", () => {
+    if (dialog[i].title === "ED") {
+      window.location.replace("./index.html");
+    } else {
+      video.src = "#";
+      eventNext(dialog);
+    }
+  });
 }
 
 function talk(char) {
@@ -194,13 +230,17 @@ function findWithAttr(array, attr, value) {
 }
 // mereset tampilan layar
 function clear() {
+  // content();
   intro.innerHTML = "";
   charBox.innerHTML = "";
   textBox.innerHTML = "";
-  // textBox.classList.remove("play");
   eventBox.innerHTML = "";
+  charBox.classList.remove("show");
+  dialogBox.classList.remove("show");
   eventBox.classList.remove("show");
   eventShow.classList.remove("show");
+  videoBox.classList.remove("show");
+  video.src = "#";
   let charList = document.querySelectorAll(".char");
   for (let i = 0; i < charList.length; i++) {
     charList[i].classList.remove("talk");
@@ -260,13 +300,9 @@ function displayChar(variabel) {
 }
 function prolog() {
   introBox.classList.add("show");
-  charBox.classList.add("hidden");
-  dialogBox.classList.add("hidden");
 }
 function content() {
   introBox.classList.remove("show");
-  charBox.classList.remove("hidden");
-  dialogBox.classList.remove("hidden");
 }
 
 bgm.volume = 0.2;

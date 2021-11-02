@@ -259,6 +259,17 @@ li {
     /* transform: scaleY(1); */
   }
 }
+.video-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+}
+.video {
+  width: 90%;
+}
 
 .hidden {
   display: none;
