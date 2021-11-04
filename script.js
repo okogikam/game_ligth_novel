@@ -41,7 +41,7 @@ xmlhttp.onreadystatechange = function () {
           let dialog = myObj[eventNow];
           clear();
           let choice = captureLink(dialog.text);
-          console.log(captureLink(dialog.text));
+          // console.log(captureLink(dialog.text));
           eventNext(myObj, choice.target);
           addLog(myObj, eventNow);
         });
@@ -90,7 +90,7 @@ function update(dialog, i) {
   if (dialog[i].type === "text") {
     // tampilkan text
     displayText(dialog, i);
-    console.log("text");
+    // console.log("text");
   }
   if (dialog[i].type === "intro") {
     // jika dialog intro
@@ -166,7 +166,7 @@ function displayEvent(dialog, i) {
 function displayVideo(dialog, i) {
   videoBox.classList.add("show");
   video.src = dialog[i].video;
-  console.log(video);
+  // console.log(video);
 
   video.addEventListener("ended", () => {
     if (dialog[i].title === "ED") {
@@ -206,7 +206,7 @@ function eventNext(dialog, target) {
     }
   }
   update(dialog, eventNow);
-  console.log(eventNow);
+  // console.log(eventNow);
 }
 // mengambil link di teks
 function captureLink(text) {
@@ -256,16 +256,22 @@ function addLog(dialog, history) {
   let div = document.createElement("div");
   let logPerson = document.createElement("p");
   let logText = document.createElement("p");
+  let dataLog = [];
 
-  for (let x = 0; x <= history; x++) {
-    logPerson.innerText = dialog[x].char;
-    div.append(logPerson);
-    // logBox.append(div);
-    logText.innerText = dialog[x].text;
-    div.append(logText);
-    logBox.append(div);
+  for (let x = 0; x < history; x++) {
+    if (
+      dialog[x].type === "intro" ||
+      dialog[x].type === "text" ||
+      dialog[x].type === "event"
+    ) {
+      let textLog = captureLink(dialog[x].text);
+      let addLog = { char: "", text: "" };
+      addLog.char = dialog[x].char;
+      addLog.text = textLog.text;
+      dataLog.push(addLog);
+    }
   }
-  // console.log(history);
+  console.log(dataLog);
 }
 function displayChar(variabel) {
   if (Array.isArray(variabel)) {
