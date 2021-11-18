@@ -9,7 +9,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: var(--font-03);
+  font-family: var(--font-01);
   font-weight: 400;
 }
 header {
@@ -76,7 +76,7 @@ header {
   font-family: var(--font-03);
 }
 .log-box div p {
-  font-family: var(--font-02);
+  font-family: var(--font-01);
 }
 .char-box {
   max-width: 900px;
@@ -195,7 +195,7 @@ header {
   transform-origin: left;
 }
 .text p {
-  font-family: var(--font-02) !important;
+  font-family: var(--font-01) !important;
   /* opacity: 0%; */
 }
 .dialog-control {

@@ -35,23 +35,7 @@ xmlhttp.onreadystatechange = function () {
       // mengupdate tampilan layar
       update(myObj, eventNow);
       addLog(myObj, eventNow);
-      const next = document.querySelector(".next");
-      if (myObj[eventNow].type === "text") {
-        next.addEventListener("click", () => {
-          let dialog = myObj[eventNow];
-          clear();
-          let choice = captureLink(dialog.text);
-          // console.log(captureLink(dialog.text));
-          eventNext(myObj, choice.target);
-          addLog(myObj, eventNow);
-        });
-      }
-      // introBox.addEventListener("click", () => {
-      //   clear();
-      //   // console.log(myObj[eventNow].title);
-      //   eventNext(myObj);
-      //   addLog(myObj, eventNow);
-      // });
+
       btnLog.addEventListener("click", () => {
         btnLog.classList.toggle("active");
         logBox.classList.toggle("show");
@@ -83,30 +67,29 @@ xmlhttp.onreadystatechange = function () {
 xmlhttp.open("GET", "data.json", true);
 xmlhttp.send();
 
-// console.log(myObj[0].char);
 function update(dialog, i) {
-  // dialog();
   // mengecek jenis dialog
+  console.log("0");
   if (dialog[i].type === "text") {
     // tampilkan text
     displayText(dialog, i);
-    // console.log("text");
-  }
-  if (dialog[i].type === "intro") {
+    content();
+    console.log("text");
+  } else if (dialog[i].type === "intro") {
     // jika dialog intro
     displayIntro(dialog, i);
-  }
-  if (dialog[i].type === "video") {
+  } else if (dialog[i].type === "video") {
     // jika dialog video
-    displayVideo(dialog, i);
-  }
-  if (dialog[i].type == "event") {
-    // jika dialog event
-    displayEvent(dialog, i);
-  }
-  if (dialog[i].type != "intro") {
     content();
+    displayVideo(dialog, i);
+  } else if (dialog[i].type === "event") {
+    // jika dialog event
+    content();
+    displayEvent(dialog, i);
+    console.log("4");
   }
+  addLog(dialog, eventNow);
+  console.log(i);
 }
 // tampilkan text
 function displayText(dialog, i) {
@@ -122,10 +105,11 @@ function displayText(dialog, i) {
   text.append(btn);
   textBox.append(text);
   const next = document.querySelector(".next");
+  console.log("1");
   next.addEventListener("click", () => {
     clear();
     eventNext(dialog, choice.target);
-    addLog(dialog, eventNow);
+    console.log("2");
   });
 }
 // tampilkan intro
@@ -138,8 +122,8 @@ function displayIntro(dialog, i) {
   introBox.addEventListener("click", () => {
     clear();
     // console.log(myObj[eventNow].title);
-    eventNext(dialog);
-    addLog(dialog, eventNow);
+    eventNext(dialog, choice.target);
+    // addLog(dialog, eventNow);
   });
 }
 // tampilkan event
@@ -157,8 +141,8 @@ function displayEvent(dialog, i) {
     option.addEventListener("click", () => {
       clear();
       eventNext(dialog, choice.target);
-      addLog(dialog, eventNow);
     });
+    // addLog(dialog, eventNow);
     eventBox.append(option);
   }
 }
@@ -166,10 +150,10 @@ function displayEvent(dialog, i) {
 function displayVideo(dialog, i) {
   videoBox.classList.add("show");
   video.src = dialog[i].video;
-  // console.log(video);
-
+  console.log(video);
+  // let choice = captureLink(dialog[i].text);
   video.addEventListener("ended", () => {
-    if (dialog[i].title === "ED") {
+    if (dialog[i].title === "ed") {
       window.location.replace("./index.html");
     } else {
       video.src = "#";
@@ -177,7 +161,7 @@ function displayVideo(dialog, i) {
     }
   });
   videoBox.addEventListener("click", () => {
-    if (dialog[i].title === "ED") {
+    if (dialog[i].title === "ed") {
       window.location.replace("./index.html");
     } else {
       video.src = "#";
@@ -199,6 +183,7 @@ function eventNext(dialog, target) {
     if (eventNow > dialog.length - 1) {
       eventNow = dialog.length - 1;
     }
+    console.log("3");
   } else {
     eventNow += 1;
     if (eventNow > dialog.length - 1) {
@@ -206,7 +191,7 @@ function eventNext(dialog, target) {
     }
   }
   update(dialog, eventNow);
-  // console.log(eventNow);
+  console.log(eventNow);
 }
 // mengambil link di teks
 function captureLink(text) {
@@ -235,6 +220,7 @@ function clear() {
   charBox.innerHTML = "";
   textBox.innerHTML = "";
   eventBox.innerHTML = "";
+  logBox.innerHTML = "";
   charBox.classList.remove("show");
   dialogBox.classList.remove("show");
   eventBox.classList.remove("show");
@@ -252,26 +238,30 @@ logBox.addEventListener("click", () => {
     btnLog.classList.remove("active");
   }
 });
-function addLog(dialog, history) {
-  let div = document.createElement("div");
-  let logPerson = document.createElement("p");
-  let logText = document.createElement("p");
-  let dataLog = [];
+function addLog(dialog, i) {
+  for (let x = 0; x < i; x++) {
+    let div = document.createElement("div");
+    let logPerson = document.createElement("p");
+    let logText = document.createElement("p");
 
-  for (let x = 0; x < history; x++) {
-    if (
-      dialog[x].type === "intro" ||
-      dialog[x].type === "text" ||
-      dialog[x].type === "event"
-    ) {
+    let dataLog = { char: "", text: "" };
+    if (dialog[x].type != "video") {
       let textLog = captureLink(dialog[x].text);
-      let addLog = { char: "", text: "" };
-      addLog.char = dialog[x].char;
-      addLog.text = textLog.text;
-      dataLog.push(addLog);
+      if (dialog[x].char != null) {
+        dataLog.char = dialog[x].char;
+      } else {
+        dataLog.char = "";
+      }
+      dataLog.text = textLog.text;
+      logPerson.innerText = dataLog.char;
+      logText.innerText = dataLog.text;
+      div.append(logPerson);
+      div.append(logText);
+      logBox.append(div);
     }
   }
-  console.log(dataLog);
+
+  console.log(logBox);
 }
 function displayChar(variabel) {
   if (Array.isArray(variabel)) {

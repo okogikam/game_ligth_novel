@@ -20,7 +20,7 @@
     "type": "text",
     "char": "kazuma",
     "display": "kazuma",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan4"
+    "text": "Lorem ipsum dolor ?  | adegan4"
   },
   {
     "char": "kazuma",
@@ -61,10 +61,10 @@
   {
     "title": "end",
     "type": "intro",
-    "text": "Game End | ED"
+    "text": "Game End | ed"
   },
   {
-    "title": "ED",
+    "title": "ed",
     "type": "video",
     "video": "./src/ED.mp4"
   }
