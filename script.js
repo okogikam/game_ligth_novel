@@ -300,5 +300,69 @@ function prolog() {
 function content() {
   introBox.classList.remove("show");
 }
+function saveData(savedata, name, data) {
+  if (savedata == "progres") {
+    let progres = {
+      name: name,
+      progres: data,
+    };
 
+    let savedProgres = JSON.parse(localStorage.getItem("progresJSON"));
+
+    if (savedProgres != null) {
+      let i = 0;
+      for (let x = 0; x < savedProgres.length; x++) {
+        if (savedProgres[x].name == name) {
+          i = 1;
+        }
+      }
+      if (i > 0) {
+        Progres = savedProgres;
+      } else {
+        Progres = savedProgres;
+        Progres.push(progres);
+      }
+      let newdata = JSON.stringify(Progres);
+      localStorage.setItem("progresJSON", newdata);
+    } else {
+      let Progres = [];
+      Progres.push(progres);
+      let newdata = JSON.stringify(Progres);
+      localStorage.setItem("progresJSON", newdata);
+    }
+  } else if (savedata == "gallery") {
+    let gallery = {
+      title: name,
+      link: data,
+    };
+    let savedGallery = JSON.parse(localStorage.getItem("galleryJSON"));
+
+    if (savedGallery != null) {
+      let i = 0;
+      for (let x = 0; x < savedGallery.length; x++) {
+        if (savedGallery[x].title == name) {
+          i = 1;
+        }
+      }
+      console.log(i);
+      if (i > 0) {
+        Gallery = savedGallery;
+      } else {
+        Gallery = savedGallery;
+        Gallery.push(gallery);
+      }
+      let newdata = JSON.stringify(Gallery);
+      localStorage.setItem("galleryJSON", newdata);
+    } else {
+      let Gallery = [];
+      Gallery.push(gallery);
+      let newdata = JSON.stringify(Gallery);
+      localStorage.setItem("galleryJSON", newdata);
+    }
+  }
+}
+function clearData() {
+  localStorage.clear("galleryJSON");
+  localStorage.clear("testJSON");
+}
 bgm.volume = 0.2;

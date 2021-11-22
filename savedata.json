@@ -1,0 +1,12 @@
+{
+  "save": {
+    "username": "name",
+    "progres": ""
+  },
+  "gallery": [
+    {
+      "title": "OP",
+      "link": "./src/OP_low.mp4"
+    }
+  ]
+}

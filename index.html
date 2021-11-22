@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="application/json" src="savedata.json"></script>
+
     <title>Home | Light Novel</title>
     <style>
       * {
@@ -24,7 +26,11 @@
         background-size: cover;
         background-repeat: no-repeat;
       }
-      .start-game {
+      .start-game,
+      .continue-game,
+      .gallery-game,
+      .save-game,
+      .del-game {
         background-color: aliceblue;
         padding: 10px 30px;
         border-radius: 10px;
@@ -34,9 +40,96 @@
   </head>
   <body>
     <div class="main">
-      <a href="game.html" class="start-game">New Game</a
-      ><a href="game.html" class="start-game">Continue</a
-      ><a href="game.html" class="start-game">Gallery</a>
+      <a href="./game.html" class="start-game">New Game</a
+      ><a href="./continue.html" class="continue-game">Continue</a
+      ><a href="./gallery.html" class="gallery-game">Gallery</a>
+      <a href="#" class="save-game">Save</a>
+      <a href="#" class="del-game">Delete Data</a>
     </div>
+    <script src="./src/jquery.js"></script>
+    <script>
+      const save = {
+        username: "Kazuma",
+        progres: "adegan4",
+      };
+      let Gallery = [];
+      let Progres = [];
+
+      const saveBtn = document.querySelector(".save-game");
+      saveBtn.addEventListener("click", () => {
+        let progres = "adegan3";
+        let name = "kazuma";
+        saveData("progres", name, progres);
+        let savedData = JSON.parse(localStorage.getItem("galleryJSON"));
+      });
+      $(".del-game").click(function () {
+        clearData();
+      });
+      function saveData(savedata, name, data) {
+        if (savedata == "progres") {
+          let progres = {
+            name: name,
+            progres: data,
+          };
+
+          let savedProgres = JSON.parse(localStorage.getItem("progresJSON"));
+
+          if (savedProgres != null) {
+            let i = 0;
+            for (let x = 0; x < savedProgres.length; x++) {
+              if (savedProgres[x].name == name) {
+                i = 1;
+              }
+            }
+            if (i > 0) {
+              Progres = savedProgres;
+            } else {
+              Progres = savedProgres;
+              Progres.push(progres);
+            }
+            let newdata = JSON.stringify(Progres);
+            localStorage.setItem("progresJSON", newdata);
+          } else {
+            let Progres = [];
+            Progres.push(progres);
+            let newdata = JSON.stringify(Progres);
+            localStorage.setItem("progresJSON", newdata);
+          }
+        } else if (savedata == "gallery") {
+          let gallery = {
+            title: name,
+            link: data,
+          };
+          let savedGallery = JSON.parse(localStorage.getItem("galleryJSON"));
+
+          if (savedGallery != null) {
+            let i = 0;
+            for (let x = 0; x < savedGallery.length; x++) {
+              if (savedGallery[x].title == name) {
+                i = 1;
+              }
+            }
+            console.log(i);
+            if (i > 0) {
+              Gallery = savedGallery;
+            } else {
+              Gallery = savedGallery;
+              Gallery.push(gallery);
+            }
+            let newdata = JSON.stringify(Gallery);
+            localStorage.setItem("galleryJSON", newdata);
+          } else {
+            let Gallery = [];
+            Gallery.push(gallery);
+            let newdata = JSON.stringify(Gallery);
+            localStorage.setItem("galleryJSON", newdata);
+          }
+        }
+      }
+      function clearData() {
+        localStorage.clear("galleryJSON");
+        localStorage.clear("testJSON");
+      }
+    </script>
   </body>
 </html>
