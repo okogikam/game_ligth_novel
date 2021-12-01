@@ -22,7 +22,11 @@
         background-repeat: no-repeat;
         background-size: cover;
       }
-      .main {
+      video {
+        max-width: 900px;
+      }
+      .main,
+      .gallery-list {
         display: grid;
         grid-template-columns: repeat(3, Auto);
         gap: 30px;
@@ -71,49 +75,67 @@
           <a href="./index.html"><i class="fas fa-home"></i> Home</a>
         </button>
       </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-title">Opening</div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-title">Opening</div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-title">Opening</div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-title">Opening</div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-title">Opening</div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-title">Opening</div>
+      <div class="gallery-list">
+        <!-- <div class="card">
+          <div class="card-img">
+            <img src="./src/paper.jpg" alt="" />
+          </div>
+          <div class="card-title">Opening</div>
+        </div> -->
       </div>
     </div>
     <script src="./src/jquery.js"></script>
+    <!-- <script src="./script.js"></script> -->
     <script>
+      let galleryList = $(".gallery-list");
+      let savedGallery = JSON.parse(localStorage.getItem("galleryJSON"));
+      loadGallery();
+      function loadGallery() {
+        let galleryItem = ["OP", "megumin", "darkness", "ed"];
+        for (let x = 0; x < galleryItem.length; x++) {
+          let title = galleryItem[x];
+          let div = document.createElement("div");
+          div.classList.add("card");
+          let cardImg = document.createElement("div");
+          cardImg.classList.add("card-img");
+          let imgUrl = document.createElement("img");
+          let cardTitle = document.createElement("div");
+          cardTitle.classList.add("card-title");
+
+          let id = findWithAttr(savedGallery, "title", title);
+          if (id > -1) {
+            div.setAttribute("id", id);
+            imgUrl.src = savedGallery[id].img;
+            cardTitle.innerText = savedGallery[id].title;
+          } else {
+            imgUrl.src = "./src/paper.jpg";
+            cardTitle.innerText = "untittled";
+          }
+          cardImg.append(imgUrl);
+          div.append(cardImg);
+          div.append(cardTitle);
+          galleryList.append(div);
+        }
+      }
+
+      // menemukan id target
+      function findWithAttr(array, attr, value) {
+        for (let i = 0; i < array.length; i++) {
+          // console.log(value);
+          if (array[i][attr] === value) {
+            return i;
+          }
+        }
+        return -1;
+      }
+
       $(".card").click(function () {
-        let url = "./src/OP_low.mp4";
-        $(".video").addClass("show");
-        $("video").attr("src", url);
+        let id = this.id;
+        if (id != "" && id > -1) {
+          let url = savedGallery[id].link;
+          $(".video").addClass("show");
+          $("video").attr("src", url);
+        }
       });
       $(".video").click(function () {
         $(".video").removeClass("show");

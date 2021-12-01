@@ -22,7 +22,8 @@
         background-repeat: no-repeat;
         background-size: cover;
       }
-      .main {
+      .main,
+      .progres-list {
         display: grid;
         grid-template-columns: 600px;
         gap: 10px;
@@ -89,54 +90,62 @@
           <a href="./index.html"><i class="fas fa-home"></i> Home</a>
         </button>
       </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/aqua.png" alt="" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Name: <span class="name">Kazuma</span></div>
-          <p>Time : <span class="time">00.05.00</span></p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Name: <span class="name">Kazuma</span></div>
-          <p>Time : <span class="time">--.--.--</span></p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Name: <span class="name">Kazuma</span></div>
-          <p>Time : <span class="time">--.--.--</span></p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Name: <span class="name">Kazuma</span></div>
-          <p>Time : <span class="time">--.--.--</span></p>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-img">
-          <img src="./src/paper.jpg" alt="" />
-        </div>
-        <div class="card-body">
-          <div class="card-title">Name: <span class="name">Kazuma</span></div>
-          <p>Time : <span class="time">--.--.--</span></p>
-        </div>
+      <div class="progres-list">
+        <!-- <div class="card">
+          <div class="card-img">
+            <img src="./src/aqua.png" alt="" />
+          </div>
+          <div class="card-body">
+            <p class="card-title">Name: <span class="name">Kazuma</span></p>
+            <p>Time : <span class="time">00.05.00</span></p>
+          </div>
+        </div> -->
       </div>
     </div>
     <script src="./src/jquery.js"></script>
     <script>
+      let progresList = $(".progres-list");
+      let savedprogres = JSON.parse(localStorage.getItem("progresJSON"));
+      loadprogres();
+      function loadprogres() {
+        // let progresItem = ["OP", "megumin", "darkness", "ed"];
+        for (let x = 0; x < savedprogres.length; x++) {
+          // let title = progresItem[x];
+          let div = document.createElement("div");
+          div.classList.add("card");
+          let cardImg = document.createElement("div");
+          cardImg.classList.add("card-img");
+          let imgUrl = document.createElement("img");
+          let cardTitle = document.createElement("div");
+          cardTitle.classList.add("card-title");
+
+          // let id = findWithAttr(savedprogres, "title", title);
+
+          // div.setAttribute("id", id);
+          imgUrl.src = "./src/kazuma.png";
+          cardTitle.innerText =
+            "Name : " +
+            savedprogres[x].name +
+            "\n Time : " +
+            savedprogres[x].time;
+
+          cardImg.append(imgUrl);
+          div.append(cardImg);
+          div.append(cardTitle);
+          progresList.append(div);
+        }
+      }
+
+      // menemukan id target
+      function findWithAttr(array, attr, value) {
+        for (let i = 0; i < array.length; i++) {
+          // console.log(value);
+          if (array[i][attr] === value) {
+            return i;
+          }
+        }
+        return -1;
+      }
       $(".card").click(function () {
         let url = "./src/OP_low.mp4";
         $(".video").addClass("show");

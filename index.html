@@ -36,11 +36,64 @@
         border-radius: 10px;
         box-shadow: 5px 5px 5px 0.3px #000;
       }
+      .new-game {
+        position: fixed;
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        background-color: rgba(0, 0, 0, 0.364);
+      }
+      .new-game form {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+      }
+      .new-game label {
+        text-align: center;
+        font-weight: 700;
+        text-transform: uppercase;
+        /* color: white; */
+        /* border: 1px solid black; */
+      }
+      .show {
+        display: flex !important;
+      }
+      .close {
+        justify-self: right;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: red;
+        color: white;
+        margin: 10px;
+        align-self: end;
+        cursor: pointer;
+      }
+      .form-grup {
+        display: flex;
+        flex-flow: column;
+      }
     </style>
   </head>
   <body>
+    <div class="new-game">
+      <div class="form-grup">
+        <button class="close">X</button>
+        <form name="newgame" action="#">
+          <label> username </label>
+          <input type="text" name="name" id="name" />
+          <input type="submit" value="play" onclick="newGame()" />
+        </form>
+      </div>
+    </div>
     <div class="main">
-      <a href="./game.html" class="start-game">New Game</a
+      <a href="#" class="start-game">New Game</a
       ><a href="./continue.html" class="continue-game">Continue</a
       ><a href="./gallery.html" class="gallery-game">Gallery</a>
       <a href="#" class="save-game">Save</a>
@@ -59,17 +112,22 @@
       saveBtn.addEventListener("click", () => {
         let progres = "adegan3";
         let name = "kazuma";
-        saveData("progres", name, progres);
-        let savedData = JSON.parse(localStorage.getItem("galleryJSON"));
+        let title = "ed";
+        let link = "./src/ED.mp4";
+        let imgGallery = "./src/ed.jpg";
+        saveData("progres", name, progres, "00.05.00");
+        // let savedData = JSON.parse(localStorage.getItem("galleryJSON"));
+        saveData("gallery", title, link, imgGallery);
       });
       $(".del-game").click(function () {
         clearData();
       });
-      function saveData(savedata, name, data) {
+      function saveData(savedata, name, data, img) {
         if (savedata == "progres") {
           let progres = {
             name: name,
             progres: data,
+            time: img,
           };
 
           let savedProgres = JSON.parse(localStorage.getItem("progresJSON"));
@@ -99,6 +157,7 @@
           let gallery = {
             title: name,
             link: data,
+            img: img,
           };
           let savedGallery = JSON.parse(localStorage.getItem("galleryJSON"));
 
@@ -126,9 +185,45 @@
           }
         }
       }
-      function clearData() {
+      function clearData(e) {
         localStorage.clear("galleryJSON");
         localStorage.clear("testJSON");
+        localStorage.clear("playerJSON");
+      }
+      $(".close").click(function () {
+        $(".new-game").removeClass("show");
+      });
+      $(".start-game").click(function () {
+        $(".new-game").addClass("show");
+      });
+      function newGame() {
+        let daftarpalyer = JSON.parse(localStorage.getItem("progresJSON"));
+        let name = document.forms["newgame"]["name"].value;
+        // e.preventDefault();
+        let idplayer = findWithAttr(daftarpalyer, "name", name);
+        if (idplayer < 0) {
+          let player = { player: name };
+          let playerJSON = JSON.stringify(player);
+
+          localStorage.setItem("playerJSON", playerJSON);
+          let playernow = JSON.parse(localStorage.getItem("playerJSON"));
+
+          setInterval(function () {
+            window.location.replace("./game.html");
+          }, 10);
+        } else {
+          alert("nama player sudah ada");
+        }
+      }
+      // menemukan id target
+      function findWithAttr(array, attr, value) {
+        for (let i = 0; i < array.length; i++) {
+          // console.log(value);
+          if (array[i][attr] === value) {
+            return i;
+          }
+        }
+        return -1;
       }
     </script>
   </body>
