@@ -208,6 +208,9 @@
           localStorage.setItem("playerJSON", playerJSON);
           let playernow = JSON.parse(localStorage.getItem("playerJSON"));
 
+          console.log(player.player);
+          tambahDataProgres(player.player);
+
           setInterval(function () {
             window.location.replace("./game.html");
           }, 10);
@@ -224,6 +227,19 @@
           }
         }
         return -1;
+      }
+
+      function tambahDataProgres(name) {
+        let progresJSON = JSON.parse(localStorage.getItem("progresJSON"));
+        let progres = {
+          name: name,
+          progres: "OP",
+          time: "00.00.00",
+        };
+        progresJSON.push(progres);
+        console.log(progresJSON);
+        let newProgres = JSON.stringify(progresJSON);
+        localStorage.setItem("progresJSON", newProgres);
       }
     </script>
   </body>

@@ -81,9 +81,6 @@
     </style>
   </head>
   <body>
-    <div class="video">
-      <video src="#" controls autoplay></video>
-    </div>
     <div class="main">
       <div class="control">
         <button class="btn-back">
@@ -113,6 +110,8 @@
           // let title = progresItem[x];
           let div = document.createElement("div");
           div.classList.add("card");
+          let attr = savedprogres[x].name;
+          div.setAttribute("title", attr);
           let cardImg = document.createElement("div");
           cardImg.classList.add("card-img");
           let imgUrl = document.createElement("img");
@@ -147,13 +146,15 @@
         return -1;
       }
       $(".card").click(function () {
-        let url = "./src/OP_low.mp4";
-        $(".video").addClass("show");
-        $("video").attr("src", url);
-      });
-      $(".video").click(function () {
-        $(".video").removeClass("show");
-        $("video").attr("src", "#");
+        let title = this.title;
+        let player = { player: title };
+        let playerJSON = JSON.stringify(player);
+
+        localStorage.setItem("playerJSON", playerJSON);
+
+        setInterval(function () {
+          window.location.replace("./game.html");
+        }, 10);
       });
     </script>
   </body>

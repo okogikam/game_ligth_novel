@@ -16,6 +16,8 @@ const video = document.querySelector(".video");
 let autoplay = false;
 let eventNow = 0;
 let btn = document.createElement("button");
+let progresJSON = JSON.parse(localStorage.getItem("progresJSON"));
+let player = JSON.parse(localStorage.getItem("playerJSON")).player;
 btn.innerText = "Next";
 btn.className = "next";
 
@@ -31,10 +33,13 @@ xmlhttp.onreadystatechange = function () {
   if (this.readyState == 4 && this.status == 200) {
     const myObj = JSON.parse(this.responseText);
     // start game
+    // console.log(eventNow);
     setTimeout(() => {
+      console.log(player);
       // mengupdate tampilan layar
-      update(myObj, eventNow);
-      addLog(myObj, eventNow);
+      cekProgres(myObj, progresJSON, player);
+      // update(myObj, eventNow);
+      // addLog(myObj, eventNow);
 
       btnLog.addEventListener("click", () => {
         btnLog.classList.toggle("active");
@@ -61,7 +66,7 @@ xmlhttp.onreadystatechange = function () {
           }
         }
       }, 2000);
-    }, 500);
+    }, 0);
   }
 };
 xmlhttp.open("GET", "data.json", true);
@@ -69,7 +74,7 @@ xmlhttp.send();
 
 function update(dialog, i) {
   // mengecek jenis dialog
-  console.log("0");
+  // console.log("0");
   if (dialog[i].type === "text") {
     // tampilkan text
     displayText(dialog, i);
@@ -86,10 +91,10 @@ function update(dialog, i) {
     // jika dialog event
     content();
     displayEvent(dialog, i);
-    console.log("4");
+    // console.log("4");
   }
   addLog(dialog, eventNow);
-  console.log(i);
+  // console.log(i);
 }
 // tampilkan text
 function displayText(dialog, i) {
@@ -105,7 +110,7 @@ function displayText(dialog, i) {
   text.append(btn);
   textBox.append(text);
   const next = document.querySelector(".next");
-  console.log("1");
+  // console.log("1");
   next.addEventListener("click", () => {
     clear();
     eventNext(dialog, choice.target);
@@ -150,7 +155,7 @@ function displayEvent(dialog, i) {
 function displayVideo(dialog, i) {
   videoBox.classList.add("show");
   video.src = dialog[i].video;
-  console.log(video);
+  // console.log(video);
   // let choice = captureLink(dialog[i].text);
   video.addEventListener("ended", () => {
     if (dialog[i].title === "ed") {
@@ -191,7 +196,7 @@ function eventNext(dialog, target) {
     }
   }
   update(dialog, eventNow);
-  console.log(eventNow);
+  // console.log(eventNow);
 }
 // mengambil link di teks
 function captureLink(text) {
@@ -364,5 +369,17 @@ function saveData(savedata, name, data) {
 function clearData() {
   localStorage.clear("galleryJSON");
   localStorage.clear("testJSON");
+}
+
+function cekProgres(dialog, array, user) {
+  let id = findWithAttr(array, "name", user);
+  if (id > -1) {
+    // eventNow = id;
+    console.log(progresJSON[id].progres);
+    eventNext(dialog, progresJSON[id].progres);
+  } else {
+    eventNow = 0;
+    update(dialog, eventNow);
+  }
 }
 bgm.volume = 0.2;
