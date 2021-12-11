@@ -198,6 +198,11 @@
       });
       function newGame() {
         let daftarpalyer = JSON.parse(localStorage.getItem("progresJSON"));
+        if (daftarpalyer != null) {
+          daftarpalyer = daftarpalyer;
+        } else {
+          daftarpalyer = [];
+        }
         let name = document.forms["newgame"]["name"].value;
         // e.preventDefault();
         let idplayer = findWithAttr(daftarpalyer, "name", name);
@@ -231,6 +236,11 @@
 
       function tambahDataProgres(name) {
         let progresJSON = JSON.parse(localStorage.getItem("progresJSON"));
+        if (progresJSON != null) {
+          progresJSON = progresJSON;
+        } else {
+          progresJSON = [];
+        }
         let progres = {
           name: name,
           progres: "OP",

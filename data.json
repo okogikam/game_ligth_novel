@@ -2,7 +2,10 @@
   {
     "type": "video",
     "title": "OP",
-    "video": "./src/OP_low.mp4"
+    "video": "./src/OP_low.mp4",
+    "text": "| adegan1",
+    "save": "save|gallery",
+    "img": "./src/op.jpg"
   },
   {
     "type": "intro",
@@ -56,16 +59,82 @@
     "char": "kazuma",
     "display": "kazuma",
     "text": "Lorem ipsum dolor?",
-    "options": ["End | end", "Next rute | adegan1", "pilihan 3 | adegan4"]
+    "options": ["End | end", "Megumin | adegan9", "Darkness | adegan14"]
   },
   {
     "title": "adegan9",
     "type": "text",
     "char": "megumin",
-    "display": "mmegumin",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.| adegan10"
+    "display": "megumin",
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.| adegan10",
+    "save": "save|progres"
   },
-
+  {
+    "title": "adegan10",
+    "type": "text",
+    "char": "megumin",
+    "display": "megumin",
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan11"
+  },
+  {
+    "title": "adegan11",
+    "type": "video",
+    "video": "./src/megumin.mp4",
+    "text": "| adegan12",
+    "save": "save|gallery",
+    "img": "./src/Megumin.png"
+  },
+  {
+    "title": "adegan12",
+    "type": "text",
+    "char": "megumin",
+    "display": "megumin",
+    "text": "Lorem ipsum dolor, | adegan13"
+  },
+  {
+    "title": "adegan13",
+    "type": "text",
+    "char": "megumin",
+    "display": "megumin",
+    "text": "sit amet consectetur adipisicing elit. Officia,debitis! | end"
+  },
+  {
+    "title": "adegan14",
+    "type": "text",
+    "char": "darkness",
+    "display": "darkness",
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.| adegan15",
+    "save": "save|progres"
+  },
+  {
+    "title": "adegan15",
+    "type": "text",
+    "char": "darkness",
+    "display": "darkness",
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan16"
+  },
+  {
+    "title": "adegan16",
+    "type": "video",
+    "video": "./src/darkness.mp4",
+    "text": "| adegan17",
+    "save": "save|gallery",
+    "img": "./src/Darkness.png"
+  },
+  {
+    "title": "adegan17",
+    "type": "text",
+    "char": "darkness",
+    "display": "darkness",
+    "text": "Lorem ipsum dolor, | adegan18"
+  },
+  {
+    "title": "adegan18",
+    "type": "text",
+    "char": "darkness",
+    "display": "darkness",
+    "text": "sit amet consectetur adipisicing elit. Officia,debitis! | end"
+  },
   {
     "title": "end",
     "type": "intro",
@@ -74,6 +143,8 @@
   {
     "title": "ed",
     "type": "video",
-    "video": "./src/ED.mp4"
+    "video": "./src/ED.mp4",
+    "save": "save|gallery",
+    "img": "./src/ed.jpg"
   }
 ]

@@ -35,7 +35,7 @@ xmlhttp.onreadystatechange = function () {
     // start game
     // console.log(eventNow);
     setTimeout(() => {
-      console.log(player);
+      //console.log(player);
       // mengupdate tampilan layar
       cekProgres(myObj, progresJSON, player);
       // update(myObj, eventNow);
@@ -79,7 +79,7 @@ function update(dialog, i) {
     // tampilkan text
     displayText(dialog, i);
     content();
-    console.log("text");
+    // console.log("text");
   } else if (dialog[i].type === "intro") {
     // jika dialog intro
     displayIntro(dialog, i);
@@ -94,6 +94,23 @@ function update(dialog, i) {
     // console.log("4");
   }
   addLog(dialog, eventNow);
+  if (dialog[i].save != null) {
+    let saveData = captureLink(dialog[i].save);
+    // console.log(saveData.target + "," + player + "," + dialog[i].title);
+    if (saveData.target == "gallery") {
+      savedData(
+        saveData.target,
+        dialog[i].title,
+        dialog[i].video,
+        dialog[i].img
+      );
+      // console.log(
+      //   saveData.target + "," + dialog[i].title + "," + dialog[i].video
+      // );
+    } else if (saveData.target == "progress") {
+      savedData(saveData.target, player, dialog[i].title, player);
+    }
+  }
   // console.log(i);
 }
 // tampilkan text
@@ -114,7 +131,7 @@ function displayText(dialog, i) {
   next.addEventListener("click", () => {
     clear();
     eventNext(dialog, choice.target);
-    console.log("2");
+    // console.log("2");
   });
 }
 // tampilkan intro
@@ -155,6 +172,7 @@ function displayEvent(dialog, i) {
 function displayVideo(dialog, i) {
   videoBox.classList.add("show");
   video.src = dialog[i].video;
+
   // console.log(video);
   // let choice = captureLink(dialog[i].text);
   video.addEventListener("ended", () => {
@@ -162,7 +180,9 @@ function displayVideo(dialog, i) {
       window.location.replace("./index.html");
     } else {
       video.src = "#";
-      eventNext(dialog);
+      let choice = captureLink(dialog[i].text);
+      clear();
+      eventNext(dialog, choice.target);
     }
   });
   videoBox.addEventListener("click", () => {
@@ -170,7 +190,9 @@ function displayVideo(dialog, i) {
       window.location.replace("./index.html");
     } else {
       video.src = "#";
-      eventNext(dialog);
+      let choice = captureLink(dialog[i].text);
+      clear();
+      eventNext(dialog, choice.target);
     }
   });
 }
@@ -188,7 +210,7 @@ function eventNext(dialog, target) {
     if (eventNow > dialog.length - 1) {
       eventNow = dialog.length - 1;
     }
-    console.log("3");
+    //console.log("3");
   } else {
     eventNow += 1;
     if (eventNow > dialog.length - 1) {
@@ -266,7 +288,7 @@ function addLog(dialog, i) {
     }
   }
 
-  console.log(logBox);
+  //console.log(logBox);
 }
 function displayChar(variabel) {
   if (Array.isArray(variabel)) {
@@ -305,12 +327,14 @@ function prolog() {
 function content() {
   introBox.classList.remove("show");
 }
-function saveData(savedata, name, data) {
+function savedData(savedata, name, data, img) {
   if (savedata == "progres") {
     let progres = {
       name: name,
       progres: data,
+      time: "00:00:00",
     };
+    let dataProgres = [];
 
     let savedProgres = JSON.parse(localStorage.getItem("progresJSON"));
 
@@ -318,16 +342,14 @@ function saveData(savedata, name, data) {
       let i = 0;
       for (let x = 0; x < savedProgres.length; x++) {
         if (savedProgres[x].name == name) {
-          i = 1;
+          dataProgres.push(progres);
+        } else {
+          dataProgres.push(savedProgres[x]);
         }
       }
-      if (i > 0) {
-        Progres = savedProgres;
-      } else {
-        Progres = savedProgres;
-        Progres.push(progres);
-      }
-      let newdata = JSON.stringify(Progres);
+
+      let newdata = JSON.stringify(dataProgres);
+      console.log(newdata);
       localStorage.setItem("progresJSON", newdata);
     } else {
       let Progres = [];
@@ -339,24 +361,21 @@ function saveData(savedata, name, data) {
     let gallery = {
       title: name,
       link: data,
+      img: img,
     };
+    let dataGallery = [];
     let savedGallery = JSON.parse(localStorage.getItem("galleryJSON"));
 
     if (savedGallery != null) {
-      let i = 0;
       for (let x = 0; x < savedGallery.length; x++) {
-        if (savedGallery[x].title == name) {
-          i = 1;
-        }
+        dataGallery.push(savedGallery[x]);
       }
-      console.log(i);
-      if (i > 0) {
-        Gallery = savedGallery;
-      } else {
-        Gallery = savedGallery;
-        Gallery.push(gallery);
+      let i = findWithAttr(savedGallery, "title", name);
+      if (i < 0) {
+        dataGallery.push(gallery);
       }
-      let newdata = JSON.stringify(Gallery);
+      let newdata = JSON.stringify(dataGallery);
+      console.log(newdata);
       localStorage.setItem("galleryJSON", newdata);
     } else {
       let Gallery = [];
@@ -375,7 +394,7 @@ function cekProgres(dialog, array, user) {
   let id = findWithAttr(array, "name", user);
   if (id > -1) {
     // eventNow = id;
-    console.log(progresJSON[id].progres);
+    //console.log(progresJSON[id].progres);
     eventNext(dialog, progresJSON[id].progres);
   } else {
     eventNow = 0;
