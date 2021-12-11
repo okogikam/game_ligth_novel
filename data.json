@@ -59,6 +59,14 @@
     "options": ["End | end", "Next rute | adegan1", "pilihan 3 | adegan4"]
   },
   {
+    "title": "adegan9",
+    "type": "text",
+    "char": "megumin",
+    "display": "mmegumin",
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.| adegan10"
+  },
+
+  {
     "title": "end",
     "type": "intro",
     "text": "Game End | ed"
