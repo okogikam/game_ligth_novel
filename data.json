@@ -74,15 +74,15 @@
     "type": "text",
     "char": "megumin",
     "display": "megumin",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan11"
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | Megumin"
   },
   {
-    "title": "adegan11",
+    "title": "Megumin",
     "type": "video",
     "video": "./src/megumin.mp4",
     "text": "| adegan12",
     "save": "save|gallery",
-    "img": "./src/Megumin.png"
+    "img": "./src/rute1.jpg"
   },
   {
     "title": "adegan12",
@@ -111,15 +111,15 @@
     "type": "text",
     "char": "darkness",
     "display": "darkness",
-    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | adegan16"
+    "text": "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Officia,debitis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia,debitis! | Darkness"
   },
   {
-    "title": "adegan16",
+    "title": "Darkness",
     "type": "video",
     "video": "./src/darkness.mp4",
     "text": "| adegan17",
     "save": "save|gallery",
-    "img": "./src/Darkness.png"
+    "img": "./src/rute2.jpg"
   },
   {
     "title": "adegan17",

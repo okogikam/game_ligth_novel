@@ -36,6 +36,14 @@
         border-radius: 10px;
         box-shadow: 5px 5px 5px 0.3px #000;
       }
+      .continue-game,
+      .save-game,
+      .del-game {
+        display: none;
+      }
+      .show {
+        display: block;
+      }
       .new-game {
         position: fixed;
         display: none;
@@ -101,6 +109,8 @@
     </div>
     <script src="./src/jquery.js"></script>
     <script>
+      // variabel
+
       const save = {
         username: "Kazuma",
         progres: "adegan4",
@@ -122,6 +132,9 @@
       $(".del-game").click(function () {
         clearData();
       });
+
+      cek();
+
       function saveData(savedata, name, data, img) {
         if (savedata == "progres") {
           let progres = {
@@ -250,6 +263,13 @@
         console.log(progresJSON);
         let newProgres = JSON.stringify(progresJSON);
         localStorage.setItem("progresJSON", newProgres);
+      }
+      function cek() {
+        let savedProgres = JSON.parse(localStorage.getItem("progresJSON"));
+        if (savedProgres != null) {
+          let continueBtn = document.querySelector(".continue-game");
+          continueBtn.classList.add("show");
+        }
       }
     </script>
   </body>

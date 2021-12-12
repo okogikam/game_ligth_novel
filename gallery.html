@@ -88,10 +88,15 @@
     <!-- <script src="./script.js"></script> -->
     <script>
       let galleryList = $(".gallery-list");
-      let savedGallery = JSON.parse(localStorage.getItem("galleryJSON"));
       loadGallery();
       function loadGallery() {
         let galleryItem = ["OP", "adegan11", "adegan16", "ed"];
+        let savedGallery = JSON.parse(localStorage.getItem("galleryJSON"));
+        if (savedGallery != null) {
+          savedGallery = savedGallery;
+        } else {
+          savedGallery = [];
+        }
         for (let x = 0; x < galleryItem.length; x++) {
           let title = galleryItem[x];
           let div = document.createElement("div");
